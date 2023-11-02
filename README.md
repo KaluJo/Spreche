@@ -7,3 +7,5 @@
 * Generate TTS voice recordings of accurate pronunciation
 
 * Test your own dictation with device's STT
+
+(P.S. this is not the same as Retreev)
