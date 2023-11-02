@@ -21,10 +21,27 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@react-native-voice/voice",
+        {
+          "microphonePermission": "Allow microphone access to use speech to text",
+          "speechRecognitionPermission": "Allow speech recognition for app functionality"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1021df92-23df-4088-a87e-b9da949423f8"
+      }
     }
   }
 }

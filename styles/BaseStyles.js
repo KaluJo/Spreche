@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const primaryColor = "#7743DB"; // Vibrant Coral Red
-const hoverColor = "#C3ACD0"; // Bright Yellow
-const backgroundColor = "#F7EFE5"; // Soft Cream
-const fontColor = "#EEEEEE"; // Dark Grey (for better readability on light backgrounds)
-const borderColor = "#FFAFCC"; // Light Pink
-const boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.15)"; // Slightly stronger shadow for depth
-const inputBackgroundColor = "#BEE3DB"; // Light Mint Green
+const primaryColor = "#7743DB"; 
+const hoverColor = "#C3ACD0"; 
+const backgroundColor = "#F7EFE5";
+const fontColor = "#EEEEEE"; 
+const borderColor = "#FFAFCC"; 
+const boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.15)"; 
+const inputBackgroundColor = "#BEE3DB"; 
 
 export const AppContainer = styled.View`
   flex: 1;
