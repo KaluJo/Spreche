@@ -30,8 +30,8 @@ const NewSentence: React.FC<NewSentenceProps> = ({ setShowModal, setCheckUpdate 
 
   const handleAddSentence = async () => {
     try {
-      const apiUrl = 'https://api.elevenlabs.io/v1/text-to-speech/XrExE9yKIg1WjnnlVkGX';
-      const xiApiKey = process.env.EXPO_PUBLIC_ELEVENLABS_API_KEY;
+      const apiUrl = 'https://api.elevenlabs.io/v1/text-to-speech/2EiwWnXFnvU5JabPnv8n';
+      const xiApiKey = process.env.EXPO_PUBLIC_ELEVENLABS_API_KEY; 
       const headers = {
         'Accept': 'audio/mpeg',
         'xi-api-key': xiApiKey,

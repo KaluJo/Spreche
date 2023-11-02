@@ -40,21 +40,17 @@ export default function App() {
     fetchData();
   }, [checkUpdate]);
 
-  let [fontsLoaded, fontError] = useFonts({
-    Inter_400Regular,
-    Inter_700Bold,
-  });
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
-
   useEffect(() => {
-
     async function scheduleNotification() {
-      const { status } = await Notifications.getPermissionsAsync();
+      let { status } = await Notifications.getPermissionsAsync();
+
+      if (status !== 'granted') {
+        const response = await Notifications.requestPermissionsAsync();
+        status = response.status;
+      }
 
       await Notifications.cancelAllScheduledNotificationsAsync();
+      console.log(status);
 
       if (status !== 'granted') {
         return;
@@ -72,13 +68,22 @@ export default function App() {
     scheduleNotification();
   }, []);
 
-  useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(response => {
-      setShowQuizModal(true);
-    });
+  let [fontsLoaded, fontError] = useFonts({
+    Inter_400Regular,
+    Inter_700Bold,
+  });
 
-    return () => subscription.remove();
-  }, []);
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+  // useEffect(() => {
+  //   const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+  //     setShowQuizModal(true);
+  //   });
+
+  //   return () => subscription.remove();
+  // }, []);
 
   return (
     <AppContainer style={{ flex: 1 }}>

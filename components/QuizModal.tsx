@@ -23,6 +23,9 @@ interface QuizModalProps {
 
 const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShowQuizModal }) => {
   const filteredSentences = sentences.filter(sentence => sentence.counter < 15);
+  if (filteredSentences.length === 0) {
+    return;
+  }
 
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number>(0);
   const [transcribedText, setTranscribedText] = useState<string>("");
@@ -101,12 +104,6 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
       alert("Bitte versuchen Sie es erneut.");
     }
   };
-
-  if (currentSentenceIndex >= filteredSentences.length) {
-    setShowQuizModal(false);
-    setCurrentSentenceIndex(0);
-    return null;
-  }
 
   return (
     <View>
