@@ -56,10 +56,13 @@ export default function App() {
         return;
       }
 
+      const randomIndex = Math.floor(Math.random() * reminders.length);
+      const randomReminder = reminders[randomIndex];
+
       await Notifications.scheduleNotificationAsync({
         content: {
           title: "Zeit für ein Quiz!",
-          body: "Es ist eine Stunde vergangen. Lass uns üben",
+          body: randomReminder,
         },
         trigger: { seconds: 3600 },
       });
@@ -89,7 +92,7 @@ export default function App() {
     <AppContainer style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         <AddSentenceModal showModal={showModal} setShowModal={setShowModal} setCheckUpdate={setCheckUpdate} />
-        <QuizModal sentences={sentences} showQuizModal={showQuizModal} setShowQuizModal={setShowQuizModal} />
+        { showQuizModal ? <QuizModal sentences={sentences} showQuizModal={showQuizModal} setShowQuizModal={setShowQuizModal} /> : null }
         <SentenceList sentences={sentences} setSentences={setSentences} />
       </SafeAreaView>
       <AddButtonBottomRight style={{ right: 80 }} onPress={() => setShowQuizModal(!showQuizModal)}>
@@ -105,3 +108,16 @@ export default function App() {
     </AppContainer>
   );
 };
+
+const reminders = [
+  "Bereit für eine Herausforderung? Dein tägliches Quiz wartet auf dich!",
+  "Neugierig, was heute gelernt werden kann? Öffne die App und finde es heraus!",
+  "Mach eine Pause und teste dein Wissen – dein Quiz ist bereit!",
+  "Wie steht's um dein Wissen heute? Zeit, es mit einem Quiz zu prüfen!",
+  "Lernzeit! Entdecke neue Fakten in deinem heutigen Quiz.",
+  "Bist du bereit, die Bestenliste zu erklimmen? Dein Quiz ist nur einen Tap entfernt.",
+  "Gönn dir eine Lernsession – dein Quiz ist nur eine Minute entfernt.",
+  "Zeit für deine tägliche Dosis Wissen. Starte das Quiz jetzt!",
+  "Teste deine Grauen Zellen – dein persönliches Quiz ist da!",
+  "Es ist Quiz-Zeit! Lass uns sehen, was du heute drauf hast."
+];

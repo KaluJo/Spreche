@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Modal, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import Voice, { SpeechResultsEvent } from '@react-native-voice/voice';
 import { QuizCounter, QuizInput, QuizMicButton, QuizModalView, QuizNextButton, QuizSentence } from '../styles/BaseStyles';
-import { handlePlay, levenshteinDistance } from '../utils';
+import { handlePlay, levenshteinDistance, removePunctuation } from '../utils';
 import purple_grad from '../assets/purple_grad.jpg';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,8 +68,8 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
     const maxLength = Math.max(originalWords.length, transcribedWords.length);
 
     for (let i = 0; i < maxLength; i++) {
-      const originalWord = originalWords[i] || "";
-      const transcribedWord = transcribedWords[i] || "";
+      const originalWord = removePunctuation(originalWords[i] || "");
+      const transcribedWord = removePunctuation(transcribedWords[i] || "");
 
       totalEdits += levenshteinDistance(originalWord, transcribedWord);
     }
@@ -78,7 +78,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
     return averageEditsPerWord <= 1;
   };
 
-  const handleNextSentence = (): void => {
+  const handleNextSentence = async (): Promise<void> => {
+    await stopSpeechToText();
+
     if (checkAccuracy()) {
       const updatedSentences = sentences.map((sentence, index) => {
         if (index === currentSentenceIndex) {
@@ -112,7 +114,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
         transparent={true}
         visible={showQuizModal}
       >
-        <View style={styles.modalOverlay}>
+        <ImageBackground source={purple_grad} style={styles.modalBackground}>
           <QuizModalView>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <QuizCounter>{`${currentSentenceIndex + 1}/${filteredSentences.length}`}</QuizCounter>
@@ -155,7 +157,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
               </QuizNextButton> :
               null}
           </QuizModalView>
-        </View>
+        </ImageBackground>
       </Modal>
     </View>
   );
@@ -164,10 +166,11 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
 export default QuizModal;
 
 const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
+  modalBackground: {
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  }
+    overflow: 'hidden',
+  },
 });

@@ -76,6 +76,7 @@ export const Sentence = styled.Text`
 `;
 
 export const SentenceButtons = styled.TouchableOpacity`
+  margin-left: 6px;
   align-self: center;
   border-radius: 6px;
   justify-content: center;
