@@ -75,7 +75,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ sentences, showQuizModal, setShow
     }
 
     const averageEditsPerWord = totalEdits / maxLength;
-    return averageEditsPerWord <= 1;
+    return averageEditsPerWord <= 2;
   };
 
   const handleNextSentence = async (): Promise<void> => {

@@ -83,6 +83,13 @@ export const SentenceButtons = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const SentenceCounter = styled.Text`
+  font-size: 16px;
+  margin-right: 4px;
+  font-family: Inter_700Bold;
+  color: ${textColor};
+`;
+
 /**
  * QUIZ STYLES
  */
